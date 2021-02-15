@@ -31,9 +31,10 @@ def create_todo():
         print(sys.exc_info())
     finally:
         db.session.close()
-    if not error:
+    if error:
+        abort(400)
+    else:
         return jsonify(body)
-
 
 @app.route('/')
 def index():
