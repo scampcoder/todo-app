@@ -30,6 +30,16 @@
                 const checkbox = checkboxes[i];
                 checkbox.onchange = function(e) {
                     console.log('event', e);
+                    const newCompleted = e.target.checked;
+                    fetch('/todos/set-completed', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            'completed': newCompleted
+                        }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
                 }
             }
             document.getElementById('form').onsubmit = function(e) {
