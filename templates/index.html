@@ -34,7 +34,7 @@
         <div id="error" class='hidden'>Something went wrong!</div>
         <ul id='todos'>
             {% for d in data %}
-            <li><input class='check-completed' data-id='{{ d.id }}' type='checkbox' {% if d.completed %} checked {% endif %}/>{{ d.description }}<button>&cross;</button></li>
+            <li><input class='check-completed' data-id='{{ d.id }}' type='checkbox' {% if d.completed %} checked {% endif %}/>{{ d.description }}<button class='delete-button'>&cross;</button></li>
             {% endfor %}
         </ul>
         <script>
@@ -52,6 +52,30 @@
                         }),
                         headers: {
                         'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(function() {
+                        document.getElementById('error').className = 'hidden';
+                    })
+                    .catch(function() {
+                        document.getElementById('error').className = '';
+                    })
+                }
+            }
+            //My code for delete button
+            const deletebtn = document.querySelectorAll('.delete-button');
+            for(let i = 0; i < deletebtn.length; i++){
+                deletebtn.onclick = function(e) {
+                    console.log('you have clicked the delete button. congrats.');
+                    const newDeleted = e.target.clicked;
+                    const todoId = e.target.dataset['id'];
+                    fetch('/todos/' + todoId + '/deleted', {
+                        method: 'GET',
+                        body: JSON.stringify({
+                            'delete': newDeleted
+                        }),
+                        headers: {
+                            'Content-Type': 'application/json'
                         }
                     })
                     .then(function() {
