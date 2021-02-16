@@ -16,7 +16,6 @@ class Todo(db.Model):
     def __repr__(self):
         return f'<Todo {self.id} {self.description}>'
 
-db.create_all()
 
 @app.route('/todos/create', methods=['POST'])
 def create_todo():
