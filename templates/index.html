@@ -34,7 +34,7 @@
         <div id="error" class='hidden'>Something went wrong!</div>
         <ul id='todos'>
             {% for d in data %}
-            <li><input class='check-completed' data-id='{{ d.id }}' type='checkbox' {% if d.completed %} checked {% endif %}/>{{ d.description }}<button class='delete-button'>&cross;</button></li>
+            <li><input class='check-completed' data-id='{{ d.id }}' type='checkbox' {% if d.completed %} checked {% endif %}/>{{ d.description }}<button data-id='{{ d.id }}' class='delete-button'>&cross;</button></li>
             {% endfor %}
         </ul>
         <script>
@@ -71,6 +71,7 @@
                     console.log(e);
                     const newDeleted = e.target.onclick;
                     const todoId = e.target.dataset['id'];
+                    console.log('this btn is linked to todoId ' + todoId);
                     fetch('/todos/' + todoId + '/deleted', {
                         method: 'GET',
                         body: JSON.stringify({
