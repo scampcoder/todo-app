@@ -63,11 +63,13 @@
                 }
             }
             //My code for delete button
-            const deletebtn = document.querySelectorAll('.delete-button');
-            for(let i = 0; i < deletebtn.length; i++){
+            const deletebtns = document.querySelectorAll('.delete-button');
+            for(let i = 0; i < deletebtns.length; i++){
+                const deletebtn = deletebtns[i];
                 deletebtn.onclick = function(e) {
                     console.log('you have clicked the delete button. congrats.');
-                    const newDeleted = e.target.clicked;
+                    console.log(e);
+                    const newDeleted = e.target.onclick;
                     const todoId = e.target.dataset['id'];
                     fetch('/todos/' + todoId + '/deleted', {
                         method: 'GET',

@@ -45,7 +45,7 @@ def set_completed_todo(todo_id):
         completed = request.get_json()['completed']
         print('completed', completed)
         todo = Todo.query.get(todo_id)
-        db.session.delete(todo)
+        todo.completed = completed
         db.session.commit()
     except:
         db.session.rollback()
@@ -56,10 +56,8 @@ def set_completed_todo(todo_id):
 @app.route('/todos/<todo_id>/deleted', methods=['GET'])
 def delete_todo(todo_id):
     try:
-        deleted = request.get_json()['deleted']
-        print('deleted', deleted)
         todo = Todo.query.get(todo_id)
-        todo.deleted = deleted
+        db.session.delete(todo)
         db.session.commit()
     except:
         db.session.rollback()
