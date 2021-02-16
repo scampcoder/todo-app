@@ -62,33 +62,17 @@
                     })
                 }
             }
-            //My code for delete button
-            const deletebtns = document.querySelectorAll('.delete-button');
-            for(let i = 0; i < deletebtns.length; i++){
-                const deletebtn = deletebtns[i];
-                deletebtn.onclick = function(e) {
-                    console.log('you have clicked the delete button. congrats.');
-                    console.log(e);
-                    const newDeleted = e.target.onclick;
-                    const todoId = e.target.dataset['id'];
-                    console.log('this btn is linked to todoId ' + todoId);
-                    fetch('/todos/' + todoId + '/deleted', {
-                        method: 'GET',
-                        body: JSON.stringify({
-                            'delete': newDeleted
-                        }),
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                    .then(function() {
-                        document.getElementById('error').className = 'hidden';
-                    })
-                    .catch(function() {
-                        document.getElementById('error').className = '';
-                    })
+            //Delete button
+            const deleteBtns = document.querySelectorAll('.delete-button');
+                for (let i = 0; i < deleteBtns.length; i++) {
+                    const btn = deleteBtns[i];
+                    btn.onclick = function(e) {
+                        const todoId = e.target.dataset['id'];
+                        fetch('/todos/' + todoId, {
+                            method: 'DELETE'
+                        });
+                    }
                 }
-            }
             document.getElementById('form').onsubmit = function(e) {
                 e.preventDefault();
                 fetch('/todos/create', {

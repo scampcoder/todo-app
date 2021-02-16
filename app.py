@@ -53,17 +53,16 @@ def set_completed_todo(todo_id):
         db.session.close()
     return redirect(url_for('index'))
 
-@app.route('/todos/<todo_id>/deleted', methods=['GET'])
+@app.route('/todos/<todo_id>', methods=['DELETE'])
 def delete_todo(todo_id):
     try:
-        todo = Todo.query.get(todo_id)
-        db.session.delete(todo)
+        Todo.query.filter_by(id=todo_id).delete()
         db.session.commit()
     except:
         db.session.rollback()
     finally:
         db.session.close
-    return redirect(url_for('index'))
+    return jsonify({ 'success': True})
 
 
 @app.route('/')
