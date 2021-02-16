@@ -43,8 +43,9 @@ def create_todo():
 def set_completed_todo(todo_id):
     try:
         completed = request.get_json()['completed']
+        print('completed', completed)
         todo = Todo.query.get(todo_id)
-        todo.completd = completed
+        todo.completed = completed
         db.session.commit()
     except:
         db.session.rollback()
