@@ -27,21 +27,25 @@
         </style>
     </head>
     <body>
-        <ul id='lists'>
-            {% for list in lists %}
-            <li>{{ list.name }}</li>
-            {% endfor %}
-        </ul>
-        <form id='form'>
-            <input type="text" id='description' name="description" />
-            <input type="submit" value="Create" />
-        </form>
-        <div id="error" class='hidden'>Something went wrong!</div>
-        <ul id='todos'>
-            {% for todo in todos %}
-            <li><input class='check-completed' data-id='{{ todo.id }}' type='checkbox' {% if todo.completed %} checked {% endif %}/>{{ todo.description }}<button data-id='{{ todo.id }}' class='delete-button'>&cross;</button></li>
-            {% endfor %}
-        </ul>
+        <div class="lists-wrapper">
+            <ul id='lists'>
+                {% for list in lists %}
+                <li>{{ list.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class='todos-wrapper'>
+            <form id='form'>
+                <input type="text" id='description' name="description" />
+                <input type="submit" value="Create" />
+            </form>
+            <div id="error" class='hidden'>Something went wrong!</div>
+            <ul id='todos'>
+                {% for todo in todos %}
+                <li><input class='check-completed' data-id='{{ todo.id }}' type='checkbox' {% if todo.completed %} checked {% endif %}/>{{ todo.description }}<button data-id='{{ todo.id }}' class='delete-button'>&cross;</button></li>
+                {% endfor %}
+            </ul>
+        </div>
         <script>
             const checkboxes = document.querySelectorAll('.check-completed');
             for (let i = 0; i < checkboxes.length; i++) {
